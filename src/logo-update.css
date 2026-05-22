@@ -1,0 +1,25 @@
+
+/* Logo Copa 2026 no header */
+.logoBadge {
+  background: rgba(255, 255, 255, 0.96) !important;
+  padding: 8px !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.5);
+}
+
+.worldCupLogo {
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, .28));
+}
+
+@media (max-width: 520px) {
+  .worldCupLogo {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+
