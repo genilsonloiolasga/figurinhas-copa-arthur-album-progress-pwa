@@ -286,6 +286,30 @@ function flagUrl(flagCode) {
 }
 
 export default function App() {
+  const PIX_KEY = "genilsonloiola7@gmail.com";
+const [showPixModal, setShowPixModal] = useState(false);
+
+const copyPixKey = async () => {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(PIX_KEY);
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = PIX_KEY;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand("copy");
+      textArea.remove();
+    }
+
+    alert("Chave Pix copiada!");
+  } catch {
+    alert("Não foi possível copiar. Selecione e copie manualmente.");
+  }
+};
   const [stickers, setStickers] = useState(() => {
     const saved = localStorage.getItem("figurinhas-copa-arthur-scan-dialog");
     return saved ? JSON.parse(saved) : {};
@@ -625,13 +649,58 @@ export default function App() {
             <img className="worldCupLogo" src="/copa2026.png" alt="Logo Copa 2026" />
           </div>
 
-          <div className="heroText">
-            <p>CONTROLE RÁPIDO</p>
-            <h1>Figurinhas da Copa 2026 <span className="miniCup">🏆</span></h1>
-            <h2>Álbum do Arthur</h2>
-            <span>Desenvolvido por Genilson Loiola 😎</span>
-          </div>
+<div className="heroText">
+  <p className="eyebrow">CONTROLE RÁPIDO</p>
 
+  <div className="heroTitleBlock">
+    <h1>Figurinhas da Copa 2026</h1>
+  </div>
+
+<div className="authorBlock">
+  <span>Desenvolvido por Genilson Loiola 😎</span>
+
+<button
+  type="button"
+  className="supportLink"
+  onClick={() => setShowPixModal(true)}
+  aria-label="Apoiar o projeto"
+>
+  💚 Apoiar projeto
+</button>
+
+{showPixModal && (
+  <div className="pixOverlay" onClick={() => setShowPixModal(false)}>
+    <div className="pixModal" onClick={(event) => event.stopPropagation()}>
+      <button
+        type="button"
+        className="pixClose"
+        onClick={() => setShowPixModal(false)}
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+
+      <div className="pixIcon">💚</div>
+
+      <h3>Apoiar o projeto</h3>
+
+      <p>
+        Esse projeto é gratuito. Se ele te ajudou, você pode apoiar com uma doação via Pix.
+      </p>
+
+      <div className="pixKeyBox">
+        <span>Chave Pix</span>
+        <strong>{PIX_KEY}</strong>
+      </div>
+
+      <button type="button" className="pixCopyButton" onClick={copyPixKey}>
+        Copiar chave Pix
+      </button>
+    </div>
+  </div>
+)}
+</div>
+</div>
           <div className="heroFacts">
             <div><b>🗓️</b><span>Copa do Mundo</span><strong>2026</strong></div>
             <div><b>📍</b><span>Sede</span><strong>EUA · Canadá · México</strong></div>
@@ -892,6 +961,38 @@ export default function App() {
           </div>
         </div>
       )}
+      
+      {showPixModal && (
+        <div className="pixOverlay" onClick={() => setShowPixModal(false)}>
+          <div className="pixModal" onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              className="pixClose"
+              onClick={() => setShowPixModal(false)}
+              aria-label="Fechar"
+            >
+              ×
+            </button>
+
+            <div className="pixIcon">💚</div>
+
+            <h3>Apoiar o projeto</h3>
+            <p>
+            Projeto grátis, mas o Pix aceita carinho 😄
+            </p>
+
+            <div className="pixKeyBox">
+              <span>Chave Pix</span>
+              <strong>{PIX_KEY}</strong>
+            </div>
+
+            <button type="button" className="pixCopyButton" onClick={copyPixKey}>
+              Copiar chave Pix
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
